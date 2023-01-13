@@ -29,7 +29,7 @@ export default function ArtSlot({
   };
 
   return (
-    <div className="p-0 m-0 h-16 w-16 bg-offwhite hover:cursor-pointer">
+    <div className="p-0 m-0 h-14 w-14 bg-offwhite hover:cursor-pointer">
       <img
         onClick={
           image_src

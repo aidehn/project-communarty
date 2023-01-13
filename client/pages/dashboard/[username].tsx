@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Canvas from '../../Components/Canvas';
 import ArtEditor from '../../Components/ArtEditor';
 import apiService from '../../utility/apiService';
+import Navbar from '../../Components/Navbar';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function Dashboard() {
 
   return (
     <div className="m-0 p-0 w-screen h-screen bg-offwhite">
+      <Navbar />
       {/* Purely for testing purposes */}
       <div id="testing-suite" className="flex flex-row gap-4 w-screen">
         {canvasData.map((artwork: any) => (

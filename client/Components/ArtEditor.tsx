@@ -41,7 +41,7 @@ export default function ArtEditor({
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <div className="m-0 p-0 w-screen h-screen bg-black/70 absolute z-10 backdrop-blur-sm"></div>
-      <div className="border-3 border-black flex flex-col items-center justify-center w-1/3 rounded-lg bg-offwhite shadow-md absolute z-20">
+      <div className="pt-5 border-3 border-black flex flex-col items-center justify-center w-1/3 rounded-lg bg-offwhite shadow-md absolute z-20">
         {/* The Pixel Art canvas */}
         <PixelGrid
           exportRef={exportRef}
@@ -49,7 +49,7 @@ export default function ArtEditor({
         ></PixelGrid>
 
         {/* A div containing the color picker and the button which on click sends the canvas to be saved in Cloudinary  */}
-        <div className="px-5 py-5 flex flex-row w-full gap-4">
+        <div className="px-5 py-5 flex justify-center flex-row w-full gap-4">
           {/* Colour Picker */}
           <TwitterPicker
             className="border-2 border-black rounded-lg"
@@ -61,7 +61,7 @@ export default function ArtEditor({
           {/* Div Containing the Buttons */}
           <div className="flex flex-col items-center w-1/3 gap-2">
             <button
-              className="p-0 m-0 bg-black w-full h-1/2 border-black text-white border-2 border-solid rounded-md hover:border-cobalt font-bold"
+              className="p-0 m-0 bg-black w-full h-1/2 border-black text-white border-2 border-solid rounded-md hover:border-cobalt font-bold shadow-md"
               onClick={() => {
                 submitArtwork();
               }}
@@ -69,7 +69,7 @@ export default function ArtEditor({
               Submit
             </button>
             <button
-              className="p-0 m-0 bg-black w-full h-1/2 border-black text-white border-2 border-solid rounded-md hover:border-cobalt font-bold"
+              className="p-0 m-0 bg-black w-full h-1/2 border-black text-white border-2 border-solid rounded-md hover:border-cobalt font-bold shadow-md"
               onClick={() => {
                 disableEditor();
               }}
