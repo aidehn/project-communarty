@@ -25,17 +25,25 @@ export default function Dashboard() {
 
   return (
     <div className="m-0 p-0 w-screen h-screen bg-offwhite">
+      {/* Purely for testing purposes */}
       <div id="testing-suite" className="flex flex-row gap-4 w-screen">
         {canvasData.map((artwork: any) => (
-          <img className="h-10 w-10" src={artwork.img_url}></img>
+          <div className="flex flex-col">
+            <img className="h-10 w-10" src={artwork.img_url} />
+            <p>
+              ROW: {artwork.row} COLUMN: {artwork.column}
+            </p>
+          </div>
         ))}
       </div>
+
       <Canvas
         enableEditor={() => {
           setToggleArtEditor(true);
         }}
         setRow={setCurrentRow}
         setColumn={setCurrentColumn}
+        canvasData={canvasData}
       />
       {toggleArtEditor && (
         <ArtEditor

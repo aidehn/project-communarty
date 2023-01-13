@@ -11,16 +11,16 @@ export default function PixelGrid({ currentColor, exportRef }: PixelGridProps) {
   const HEIGHT = 16;
   const WIDTH = 16;
   const grid = [];
+
   // Populating the Grid
   for (let i = 0; i < HEIGHT; i++)
     grid.push(<Row key={i} width={WIDTH} currentColor={currentColor} />);
+
   return (
-    <div
-      id="pixel-grid"
-      ref={exportRef}
-      className="p-0 m-0 border-solid border-3 border-black"
-    >
-      {grid}
+    <div className="p-0 m-0 shadow-xl">
+      <div id="pixel-grid" ref={exportRef} className="p-0 m-0">
+        {grid}
+      </div>
     </div>
   );
 }
