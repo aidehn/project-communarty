@@ -20,13 +20,16 @@ export default function Dashboard() {
       const data = await apiService.getAllArtworkById(canvasId);
       setCanvasData(data);
     };
-    // Using a single canvas for now
-    getAllCanvasData('test_canvas');
-    // populate them into the canvas
+    getAllCanvasData('canvas_id');
   }, []);
 
   return (
     <div className="m-0 p-0 w-screen h-screen bg-offwhite">
+      <div id="testing-suite" className="flex flex-row gap-4 w-screen">
+        {canvasData.map((artwork: any) => (
+          <img className="h-10 w-10" src={artwork.img_url}></img>
+        ))}
+      </div>
       <Canvas
         enableEditor={() => {
           setToggleArtEditor(true);

@@ -29,8 +29,9 @@ export default function ArtEditor({
     disableEditor();
 
     // Base64 Image URL
-    const imageUrl = await convertCanvasToImageUrl(exportRef.current);
-    const data = { image: imageUrl, username: user };
+    const imageBase64 = await convertCanvasToImageUrl(exportRef.current);
+    const data = { imageBase64, user, row, column };
+    console.log(data);
 
     // Currently it contains all information on the image given by Cloudinary
     const response = await apiService.postImageToServer(data);
