@@ -6,5 +6,6 @@ const userController = require('./controller/images');
 router.post('/upload', imageController.postArtwork);
 router.post('/canvas', imageController.getContributionsByCanvasId);
 router.post('create/user', userController.createUser);
+router.post('/login', userController.loginUser);
 
 module.exports = router;
