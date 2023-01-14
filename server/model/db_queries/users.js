@@ -45,3 +45,13 @@ exports.loginUser = async (loginData) => {
     return err;
   }
 };
+
+exports.getUserInfo = async (userId) => {
+  try {
+    const user = await Users.findOne({ _id: userId });
+    const returnedInfo = { username: user.username, email: user.email };
+    return returnedInfo;
+  } catch (err) {
+    return err;
+  }
+};

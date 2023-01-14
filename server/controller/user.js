@@ -51,3 +51,21 @@ exports.loginUser = async (req, res) => {
     res.send({ msg: 'Something went wrong' });
   }
 };
+
+exports.getUserInfo = async (req, res) => {
+  try {
+    const header = req.headers['authorization'];
+    const token = header && header.split(' ')[1];
+    console.log(token);
+    if (token) {
+      // The payload contains { userId: _id }
+      const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+      const userInfo = await userQueries.getUserInfo(payload.userId);
+      res.status = 200;
+      res.send(userInfo);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus = 400;
+  }
+};

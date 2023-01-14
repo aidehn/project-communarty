@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { MouseEvent } from 'react';
 import { ChangeEvent } from 'react';
 import apiService from '../utility/apiService';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type LoginProps = {
   toggleRegister: () => void;
@@ -11,12 +10,18 @@ type LoginProps = {
 export default function Login({ toggleRegister }: LoginProps) {
   const [email, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const router = useRouter();
 
   const handleSubmit = async () => {
     const loginData = { email, password };
-    const token = await apiService.loginUser(loginData);
-    if (token) localStorage.setItem('token', 'example token');
-    console.log(token);
+    const response = await apiService.loginUser(loginData);
+    if (response && response.token) {
+      console.log(response);
+      // If there was a response from the server, and the token exists, set in local storage for future requests.
+      localStorage.setItem('token', response.token);
+      // Navigate to the dashboard
+      router.push('/dashboard');
+    }
   };
 
   const handleUsername = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +35,8 @@ export default function Login({ toggleRegister }: LoginProps) {
   return (
     <div className="flex flex-col justify-center items-center">
       <form
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           handleSubmit();
         }}
         className="m-0 p-5 flex flex-col items-center gap-3 w-96"

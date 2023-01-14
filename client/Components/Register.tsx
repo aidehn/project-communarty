@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { ChangeEvent } from 'react';
 import apiService from '../utility/apiService';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // If I remember, make register and login one component i dont know why it is separate i am too far gone
 
@@ -13,12 +14,18 @@ export default function Register({ toggleRegister }: RegisterProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
+  const [promptMessage, setPromptMessage] = useState<string>('');
+  const router = useRouter();
 
   const handleSubmit = async () => {
     const userData = { username, email, password };
     console.log('woo');
-    // Don't want to return the user details.
-    const status = await apiService.createAccount(userData);
+    // Don't want to return the user details. Returns the status of the account creation
+    const response = await apiService.createAccount(userData);
+    setPromptMessage(response.status);
+    // Go back to the login page to sign-in
+    router.push('/login');
+
     console.log(status);
   };
 
@@ -38,7 +45,8 @@ export default function Register({ toggleRegister }: RegisterProps) {
     <div className="flex flex-col justify-center items-center">
       <form
         className="m-0 p-5 flex flex-col items-center gap-3 w-96"
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           handleSubmit();
         }}
       >
@@ -70,11 +78,12 @@ export default function Register({ toggleRegister }: RegisterProps) {
         ></input>
         <button
           type="submit"
-          className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg hover:border-cobalt font-bold hover:bottom-[2px] hover:relative"
+          className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg font-bold hover:bottom-[2px] hover:relative"
         >
           Create Account
         </button>
       </form>
+      <p className="text-gray-500">{promptMessage}</p>
       <p className="text-gray-500">
         Have an account?{' '}
         <span

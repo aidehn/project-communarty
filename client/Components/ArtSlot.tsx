@@ -38,7 +38,7 @@ export default function ArtSlot({
                 setStateOnClick(row, column);
               }
         }
-        className="h-full w-full"
+        className="h-full w-full hover:rounded-md hover:shadow-around hover:scale-150"
         src={image_src || process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE}
       />
     </div>

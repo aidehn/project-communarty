@@ -72,9 +72,66 @@ const loginUser = async (loginData: any) => {
   }
 };
 
+const retrieveUserInformation = async () => {
+  const token = localStorage.getItem('token');
+  console.log('this is the token', token);
+  try {
+    const response = await fetch('http://localhost:3005/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const thing = await response.json();
+    console.log('this is thiing', thing);
+    return thing;
+  } catch (err) {
+    console.log('There was an error with retrieveing the users data');
+    return err;
+  }
+};
+
+const retrieveUserCanvases = async () => {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch('http:localhost:3005/user/canvas', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await response.json();
+  } catch (err) {
+    console.log('There was an error with retrieveing the users canvases');
+    return err;
+  }
+};
+
+const retrieveUserArt = async () => {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch('http:localhost:3005/user/artwork', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await response.json();
+  } catch (err) {
+    console.log('There was an error with retrieveing the users contributions');
+    return err;
+  }
+};
+
 export default {
   postImageToServer,
   getAllArtworkById,
   createAccount,
   loginUser,
+  retrieveUserCanvases,
+  retrieveUserInformation,
+  retrieveUserArt,
 };

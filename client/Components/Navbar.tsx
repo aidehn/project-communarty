@@ -10,7 +10,12 @@ export default function Navbar() {
       </p>
 
       <Link href="/login">
-        <button className="p-0 m-0 text-sm text-white justify-center bg-cobalt rounded-md w-24 h-9 shadow-md font-semibold hover:bg-cobalt/80">
+        <button
+          onClick={() => {
+            localStorage.removeItem('token');
+          }}
+          className="p-0 m-0 text-sm text-white justify-center bg-cobalt rounded-md w-24 h-9 shadow-md font-semibold hover:bg-cobalt/80"
+        >
           Logout
         </button>
       </Link>
