@@ -1,3 +1,5 @@
+import { CloudHSM } from 'aws-sdk';
+
 // This uploads the Pixel Art to the Cloudinary Database and our MongoDB Database
 const postImageToServer = async (data: any) => {
   try {
@@ -53,4 +55,26 @@ const createAccount = async (userData: any) => {
   }
 };
 
-export default { postImageToServer, getAllArtworkById, createAccount };
+const loginUser = async (loginData: any) => {
+  try {
+    const response = await fetch('http://localhost:3005/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    });
+    return await response.json();
+  } catch (err) {
+    console.log('There was an error with logging into your account');
+    console.log(err);
+    return err;
+  }
+};
+
+export default {
+  postImageToServer,
+  getAllArtworkById,
+  createAccount,
+  loginUser,
+};

@@ -2,8 +2,6 @@ const Contributions = require('../artwork');
 
 exports.postContribution = async (data) => {
   try {
-    console.log('DATA TO BE SENT TO DB');
-    console.log(data);
     const contribution = await Contributions.create(data);
     return contribution;
   } catch (err) {
@@ -16,9 +14,7 @@ exports.postContribution = async (data) => {
 // Note that canvasId is stored as belongs_to in the collection for the contributions.
 exports.getContributionsByCanvasId = async (canvasId) => {
   try {
-    console.log(canvasId);
     const allContributions = await Contributions.find({ belongs_to: canvasId });
-    console.log(allContributions);
     return allContributions;
   } catch (err) {
     console.log(

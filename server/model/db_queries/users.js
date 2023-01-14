@@ -25,15 +25,21 @@ exports.loginUser = async (loginData) => {
   try {
     // Find user via the username and password given by the user.
     const user = await Users.findOne({ email: loginData.email });
-    const passwordCorrect = await bcrypt.compare(
-      loginData.password,
-      user.password
-    );
-    console.log(passwordCorrect);
 
-    return passwordCorrect
-      ? { status: 'Correct Password', userId: user._id }
-      : { status: 'Incorrect Password', userId: null };
+    // If there is a user, check the password is correct
+    if (user) {
+      const passwordCorrect = await bcrypt.compare(
+        loginData.password,
+        user.password
+      );
+      console.log(passwordCorrect);
+
+      return passwordCorrect
+        ? { status: 'Correct Password', userId: user._id }
+        : { status: 'Email / Password Incorrect', userId: null };
+    } else {
+      return { status: 'Email / Password Incorrect', userId: null };
+    }
   } catch (err) {
     console.log(`User with ${username} was not found`);
     return err;

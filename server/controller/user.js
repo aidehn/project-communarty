@@ -41,9 +41,13 @@ exports.loginUser = async (req, res) => {
       console.log(token);
       res.status = 200;
       res.send({ token });
-    } else if (result.status === 'Incorrect Password') {
+    } else if (result.status === 'Email / Password Incorrect') {
+      console.log('aint no mo token');
       res.status = 400;
       res.send({ token: null });
     }
-  } catch (err) {}
+  } catch (err) {
+    res.status = 400;
+    res.send({ msg: 'Something went wrong' });
+  }
 };

@@ -5,10 +5,6 @@ exports.postArtwork = async (req, res) => {
   try {
     const { imageBase64, user, row, column } = req.body;
 
-    // This will be stored in the database collection "contributions"
-    console.log('BODY');
-    console.log(req.body);
-
     // Returns JSON on the image information. This is sent to the "communarty" file in Cloudinary server.
     const imageInfo = await cloudinary.uploader.upload(imageBase64, {
       folder: 'communarty',
@@ -25,9 +21,6 @@ exports.postArtwork = async (req, res) => {
 
     // Store in the database
     const contributionData = await contributionQueries.postContribution(data);
-
-    console.log('CONTRIBUTION DATA');
-    console.log(contributionData);
 
     // SUCCESSFUL POST
     res.status = 201;
