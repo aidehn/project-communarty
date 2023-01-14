@@ -35,4 +35,22 @@ const getAllArtworkById = async (canvasId: string) => {
   }
 };
 
-export default { postImageToServer, getAllArtworkById };
+// Creates an account and stores in the server.
+const createAccount = async (userData: any) => {
+  try {
+    const response = await fetch('http://localhost:3005/create/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+    return await response.json();
+  } catch (err) {
+    console.log('There was an error in creating an account.');
+    console.log(err);
+    return err;
+  }
+};
+
+export default { postImageToServer, getAllArtworkById, createAccount };

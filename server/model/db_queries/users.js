@@ -10,11 +10,12 @@ exports.loginUser = async (username, hashedPassword) => {
     console.log(`User with ${username} was not found`);
     return err;
   }
-}
+};
 
-exports.registerUser = async () => {
+exports.createUser = async (userData) => {
+  // User data : { username, password, email }
   // Checks if the email or username exists
   // Information from client is {username, email, password, NEEDS ID TO BE GENERATED}
   // need to hashpassword
   // If it does not exist, creates the user and user_id and stores in the server
-}
+};

@@ -38,6 +38,9 @@ export default function Canvas({
   }
 
   return (
-    <div className="p-0 m-2 mx-4 shadow-xl w-fit border-black">{grid}</div>
+    <div className="flex flex-col items-start w-screen p-5 py-4 gap-3 m-5 my-4">
+      <p className="text-3xl font-semibold">Canvas Name</p>
+      <div className="shadow-xl w-fit self-start">{grid}</div>
+    </div>
   );
 }
