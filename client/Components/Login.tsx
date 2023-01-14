@@ -43,9 +43,9 @@ export default function Login({ toggleRegister }: LoginProps) {
         <Link href={`dashboard/${email}`} className="w-full">
           <button
             onClick={handleClick}
-            className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg hover:border-cobalt font-bold"
+            className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg font-bold hover:border-cobalt hover:bottom-[2px] hover:relative"
           >
-            Login
+            Log in
           </button>
         </Link>
       </form>
