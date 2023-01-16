@@ -35,7 +35,7 @@ export default function ArtSlot({
   return (
     <div
       className="p-0 m-0 h-14 w-14 flex flex-col justify-center items-center bg-offwhite hover:cursor-pointer"
-      onMouseEnter={() => {
+      onClick={() => {
         console.log(`Creator ${creator}, Image ${image_src}`);
         setHighlighted({ creator, image_src });
         console.log(highlightedArt);
@@ -52,7 +52,7 @@ export default function ArtSlot({
                 setStateOnClick(row, column);
               }
         }
-        className="h-full w-full hover:rounded-md hover:shadow-around hover:scale-150 ease-out duration-75"
+        className="h-full w-full hover:rounded-md hover:shadow-around hover:scale-150 ease-out duration-50"
         src={image_src || process.env.NEXT_PUBLIC_PLACEHOLDER_IMAGE}
       />
     </div>

@@ -10,6 +10,7 @@ type ArtEditorProps = {
   user: string;
   canvasId: string;
   disableEditor: () => void;
+  updateCanvas: (canvasId: string) => void;
 };
 
 export default function ArtEditor({
@@ -18,6 +19,7 @@ export default function ArtEditor({
   row,
   column,
   canvasId,
+  updateCanvas,
 }: ArtEditorProps) {
   // Set the initial color chosen to be black
   const [currentColor, setCurrentColor] = useState('#000000');
@@ -38,6 +40,9 @@ export default function ArtEditor({
     // Currently it contains all information on the image given by Cloudinary
     const response = await apiService.postImageToServer(data);
     console.log(response);
+
+    // Get all of the new data and update the state to this data
+    updateCanvas(canvasId);
   };
 
   return (

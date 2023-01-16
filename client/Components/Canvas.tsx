@@ -52,7 +52,7 @@ export default function Canvas({
   }
 
   return (
-    <div className="flex flex-col items-start w-screen p-5 py-4 gap-3 m-5 my-4">
+    <div className="flex flex-col items-start w-fit p-5 py-4 gap-3 m-5 my-4">
       <div className="shadow-xl w-fit self-start">{grid}</div>
     </div>
   );

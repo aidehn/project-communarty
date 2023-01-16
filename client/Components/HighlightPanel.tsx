@@ -11,15 +11,14 @@ export default function HighlightPanel({
   highlightedArt,
 }: HighlightPanelProps) {
   return (
-    <div className="p-0 m-0 w-1/3 h-1/2 flex flex-col items-center justify-center bg-white">
-      <p className="">Created by : {highlightedArt['creator']}</p>
-      <div className="p-0 m-0 h-96 w-96">
+    <div className="p-5 m-0 w-fit h-fit flex flex-col items-start justify-center bg-transparent">
+      <p className="my-2 font-bold text-xl ">
+        /<span className="text-cobalt">art</span>/ {highlightedArt['creator']}
+      </p>
+      <div className="p-0 m-0 h-48 w-48 border-3 border-black rounded">
         <img
-          className="h-full w-full"
-          src={
-            highlightedArt['image_src'] ||
-            'https://res.cloudinary.com/deq8mjrh3/image/upload/v1673791045/communarty/dbwy84ch9dmiycxuojbq.jpg'
-          }
+          className="h-full w-full shadow-lg"
+          src={highlightedArt['image_src']}
         ></img>
       </div>
     </div>
