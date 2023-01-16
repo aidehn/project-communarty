@@ -1,6 +1,9 @@
 const cloudinary = require('../cloudinary');
 const contributionQueries = require('../model/db_queries/contributions');
 const canvasQueries = require('../model/db_queries/canvases');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 exports.postArtwork = async (req, res) => {
   try {
@@ -61,6 +64,24 @@ exports.getCanvasesByUserId = async (req, res) => {
     res.status = 200;
     res.send(canvases);
   } catch (error) {
+    res.status(400);
+    res.send(err);
+  }
+};
+
+exports.getUserContributions = async (req, res) => {
+  try {
+    const header = req.headers['authorization'];
+    const token = header && header.split(' ')[1];
+    if (token) {
+      const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+      const userArt = await contributionQueries.getUserContributions(
+        payload.userId
+      );
+      res.status = 200;
+      res.send(userArt);
+    }
+  } catch (err) {
     res.status(400);
     res.send(err);
   }

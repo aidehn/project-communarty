@@ -72,7 +72,7 @@ exports.getUserInfo = async (userId) => {
       email: user.email,
       canvas_id: userCanvas._id,
     };
-    console.log('THIS SHIT WILD', returnedInfo);
+    // console.log('THIS SHIT WILD', returnedInfo);
     return returnedInfo;
   } catch (err) {
     return err;
