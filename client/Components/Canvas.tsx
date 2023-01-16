@@ -1,10 +1,20 @@
 import CanvasRow from './CanvasRow';
+import { useState } from 'react';
+
+type UserDetails = {
+  username: string;
+  email: string;
+  canvas_id: string;
+};
 
 type CanvasProps = {
   enableEditor: () => void;
   setRow: (index: number) => void;
   setColumn: (index: number) => void;
   canvasData: any[];
+  currentUser: UserDetails;
+  highlightedArt: any;
+  setHighlighted: (art: any) => void;
 };
 
 export default function Canvas({
@@ -12,10 +22,13 @@ export default function Canvas({
   setRow,
   setColumn,
   canvasData,
+  currentUser,
+  highlightedArt,
+  setHighlighted,
 }: CanvasProps) {
-  // Hard Coded Dimensions for the Canvas, here it will 32x16?
-  const image_src =
-    'https://res.cloudinary.com/deq8mjrh3/image/upload/v1673599780/communarty/qdq6q36jtrjfjxqkyecl.jpg';
+  //
+
+  // Hard Coded Dimensions for the Canvas
   const HEIGHT = 12;
   const WIDTH = 24;
   const grid = [];
@@ -27,19 +40,19 @@ export default function Canvas({
       <CanvasRow
         key={i}
         width={WIDTH}
-        image_src={''}
         row={i}
         enableEditor={enableEditor}
         setRow={setRow}
         setColumn={setColumn}
         rowData={rowData}
+        highlightedArt={highlightedArt}
+        setHighlighted={setHighlighted}
       />
     );
   }
 
   return (
     <div className="flex flex-col items-start w-screen p-5 py-4 gap-3 m-5 my-4">
-      <p className="text-3xl font-semibold">Canvas Name</p>
       <div className="shadow-xl w-fit self-start">{grid}</div>
     </div>
   );

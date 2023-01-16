@@ -15,6 +15,7 @@ exports.postContribution = async (data) => {
 exports.getContributionsByCanvasId = async (canvasId) => {
   try {
     const allContributions = await Contributions.find({ belongs_to: canvasId });
+    console.log(allContributions);
     return allContributions;
   } catch (err) {
     console.log(

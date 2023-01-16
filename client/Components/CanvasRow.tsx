@@ -3,8 +3,9 @@ import ArtSlot from './ArtSlot';
 type CanvasRowProps = {
   width: number;
   row: number;
-  image_src: string | undefined;
   rowData: any[];
+  highlightedArt: any;
+  setHighlighted: (art: any) => void;
   enableEditor: () => void;
   setRow: (index: number) => void;
   setColumn: (index: number) => void;
@@ -13,11 +14,12 @@ type CanvasRowProps = {
 export default function CanvasRow({
   width,
   row,
-  image_src,
   rowData,
   enableEditor,
   setRow,
   setColumn,
+  highlightedArt,
+  setHighlighted,
 }: CanvasRowProps) {
   // Defining a given row in the grid
   const gridRow = [];
@@ -28,11 +30,14 @@ export default function CanvasRow({
 
     gridRow.push(
       <ArtSlot
+        highlightedArt={highlightedArt}
+        setHighlighted={setHighlighted}
         key={i}
         image_src={imageUrl}
         row={row}
         column={i}
         enableEditor={enableEditor}
+        creator={(artData && artData['owner_id']) || ''}
         setRow={setRow}
         setColumn={setColumn}
       />

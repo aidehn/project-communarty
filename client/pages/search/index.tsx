@@ -1,50 +1,55 @@
-import { useState, useEffect } from 'react';
+import Navbar from '../../Components/Navbar';
 import Canvas from '../../Components/Canvas';
 import ArtEditor from '../../Components/ArtEditor';
+import { useEffect, useState } from 'react';
 import apiService from '../../utility/apiService';
-import Navbar from '../../Components/Navbar';
 import HighlightPanel from '../../Components/HighlightPanel';
 
-export default function Dashboard() {
-  const [toggleArtEditor, setToggleArtEditor] = useState(false);
+export default function Search() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentUser, setCurrentUser] = useState<any>({});
   const [canvasData, setCanvasData] = useState<any>([]);
   const [currentRow, setCurrentRow] = useState<undefined | number>(undefined);
   const [currentColumn, setCurrentColumn] = useState<undefined | number>(
     undefined
   );
-  const [currentUser, setCurrentUser] = useState<any>({});
-  const [artworkList, setArtworkList] = useState<any[]>([]);
+  const [toggleArtEditor, setToggleArtEditor] = useState(false);
   const [highlightedArt, setHighlightedArt] = useState<any>({});
 
   useEffect(() => {
-    const getAllCanvasData = async (canvasId: string) => {
-      const data = await apiService.getAllArtworkById(canvasId);
-      console.log(data);
-      setCanvasData(data);
-    };
-
     // On load, we need to grab all canvas and art data from the server using the token
-    // If the token is invalid, or there is no token, we must return to the home page
+    // If the token is invalid, or there is no token, we must return to the home page**
     const getDataOnLoad = async () => {
       // Grabbing basic User Information { username, email, canvas_id }
       const userResponse = await apiService.retrieveUserInformation();
-      console.log(userResponse);
       setCurrentUser(userResponse);
-      // This somehow fixed a loading issue
-      getAllCanvasData(userResponse.canvas_id);
     };
     getDataOnLoad();
   }, []);
 
+  const handleSubmit = async () => {
+    const contributions = await apiService.getAllArtworkById(searchTerm);
+    setCanvasData(contributions);
+  };
+
   return (
-    <div className="m-0 p-0 w-screen h-screen bg-offwhite overflow-hidden">
+    <div className="m-0 p-0 w-screen h-screen bg-offwhite">
       <Navbar />
-      <p className="text-3xl font-semibold">
-        Hello, {currentUser.username || 'there'} ! Welcome to your personal
-        canvas.
-      </p>
-      <p>Email : {currentUser.email}</p>
-      <p>Canvas Id : {currentUser.canvas_id} </p>
+      <p className="text-3xl font-semibold">Search for other Canvases</p>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <input
+          className="p-2 px-4 border-3 border-solid border-black outline-none text-md w-1/3 rounded-lg focus:border-cobalt"
+          placeholder="Search by Canvas ID"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        ></input>
+      </form>
+
       <Canvas
         highlightedArt={highlightedArt}
         setHighlighted={(art: any) => {
@@ -63,7 +68,7 @@ export default function Dashboard() {
           row={currentRow}
           column={currentColumn}
           user={currentUser.username}
-          canvasId={currentUser.canvas_id}
+          canvasId={searchTerm}
           disableEditor={() => {
             setToggleArtEditor(false);
           }}

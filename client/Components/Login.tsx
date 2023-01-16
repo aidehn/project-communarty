@@ -44,6 +44,7 @@ export default function Login({ toggleRegister }: LoginProps) {
         <input
           placeholder="Email"
           type="text"
+          required
           onChange={handleUsername}
           className="p-2 px-4 border-3 border-solid border-black outline-none text-md w-full rounded-lg focus:border-cobalt"
         ></input>
@@ -51,6 +52,7 @@ export default function Login({ toggleRegister }: LoginProps) {
         <input
           placeholder="Password"
           type="password"
+          required
           onChange={handlePassword}
           className="p-2 px-4 border-3 border-solid border-black outline-none text-md w-full rounded-lg focus:border-cobalt"
         ></input>

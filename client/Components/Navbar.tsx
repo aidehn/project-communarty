@@ -4,10 +4,16 @@ export default function Navbar() {
   return (
     <div className="m-0 p-0 w-full h-16 sticky bg-black flex flex-row justify-between top-0 items-center shadow-xl px-5">
       <p className="text-3xl text-white font-semibold">
-        <Link href="/">
+        <Link href="/dashboard">
           Commun/<span className="text-cobalt">art</span>/y.
         </Link>
       </p>
+
+      <Link href="/search">
+        <div className="h-full w-fit px-10 flex flex-col justify-center items-center bg-white rounded-full">
+          <p className="text-gray-500">hi</p>
+        </div>
+      </Link>
 
       <Link href="/login">
         <button

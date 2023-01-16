@@ -2,11 +2,8 @@ const mongoose = require('./db');
 
 const CanvasSchema = mongoose.Schema(
   {
-    canvas_id: {
-      type: String,
-      required: true,
-    },
-    owner: {
+    // _id is the canvas_id
+    owner_id: {
       type: String,
       required: true,
     },

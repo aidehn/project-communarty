@@ -1,4 +1,5 @@
 const Users = require('../users');
+const Canvases = require('../canvases');
 const bcrypt = require('bcrypt');
 
 exports.createUser = async (userData) => {
@@ -6,14 +7,28 @@ exports.createUser = async (userData) => {
     // Check if the user already exists
     console.log('before');
     const checkEmail = await Users.findOne({ email: userData.email });
+    const checkUsername = await Users.findOne({ username: userData.username });
     console.log(checkEmail);
-    if (checkEmail) return { status: 'User Exists' };
+    if (checkEmail || checkUsername) return { status: 'User Exists' };
 
     // If the user doesn't exist, hash and store the password
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(userData.password, salt);
 
-    await Users.create({ ...userData, password: hashedPassword });
+    // Create a user, but also create a canvas linked to their account
+    const newUser = await Users.create({
+      ...userData,
+      password: hashedPassword,
+    });
+
+    console.log(newUser);
+
+    // Creating the canvas
+    await Canvases.create({
+      owner_id: newUser._id,
+      img_url: 'placeholder_url',
+    });
+
     return { status: 'Created User' };
   } catch (err) {
     console.log(err);
@@ -49,7 +64,15 @@ exports.loginUser = async (loginData) => {
 exports.getUserInfo = async (userId) => {
   try {
     const user = await Users.findOne({ _id: userId });
-    const returnedInfo = { username: user.username, email: user.email };
+
+    // Note to self : Currently this approach only works for one canvas
+    const userCanvas = await Canvases.findOne({ owner_id: userId });
+    const returnedInfo = {
+      username: user.username,
+      email: user.email,
+      canvas_id: userCanvas._id,
+    };
+    console.log('THIS SHIT WILD', returnedInfo);
     return returnedInfo;
   } catch (err) {
     return err;

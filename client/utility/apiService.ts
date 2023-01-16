@@ -21,6 +21,7 @@ const postImageToServer = async (data: any) => {
 // Gets all Artwork for a given Canvas (for one canvas, we will hard code the name)
 const getAllArtworkById = async (canvasId: string) => {
   const queryData = { canvasId };
+  console.log(queryData);
   try {
     const response = await fetch('http://localhost:3005/canvas', {
       method: 'POST',
@@ -29,7 +30,9 @@ const getAllArtworkById = async (canvasId: string) => {
       },
       body: JSON.stringify(queryData),
     });
-    return await response.json();
+    const artwork = await response.json();
+    console.log('the artwork response', artwork);
+    return artwork;
   } catch (err) {
     console.log(`There was an error in uploading the image.`);
     console.log(err);
@@ -92,22 +95,22 @@ const retrieveUserInformation = async () => {
   }
 };
 
-const retrieveUserCanvases = async () => {
-  const token = localStorage.getItem('token');
-  try {
-    const response = await fetch('http:localhost:3005/user/canvas', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return await response.json();
-  } catch (err) {
-    console.log('There was an error with retrieveing the users canvases');
-    return err;
-  }
-};
+// const retrieveUserCanvases = async () => {
+//   const token = localStorage.getItem('token');
+//   try {
+//     const response = await fetch('http:localhost:3005/user/canvas', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return await response.json();
+//   } catch (err) {
+//     console.log('There was an error with retrieveing the users canvases');
+//     return err;
+//   }
+// };
 
 const retrieveUserArt = async () => {
   const token = localStorage.getItem('token');
@@ -126,12 +129,31 @@ const retrieveUserArt = async () => {
   }
 };
 
+const searchCanvasByUser = async (username: string) => {
+  try {
+    const response = await fetch('http://localhost:3005/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
+    const userCanvasInfo = await response.json();
+    console.log(userCanvasInfo);
+    return userCanvasInfo;
+  } catch (err) {
+    console.log('There was an error in searching for users');
+    return err;
+  }
+};
+
 export default {
   postImageToServer,
   getAllArtworkById,
   createAccount,
   loginUser,
-  retrieveUserCanvases,
+  /* retrieveUserCanvases, */
   retrieveUserInformation,
   retrieveUserArt,
+  searchCanvasByUser,
 };

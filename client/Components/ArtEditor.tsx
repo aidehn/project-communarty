@@ -8,6 +8,7 @@ type ArtEditorProps = {
   row?: number;
   column?: number;
   user: string;
+  canvasId: string;
   disableEditor: () => void;
 };
 
@@ -16,6 +17,7 @@ export default function ArtEditor({
   disableEditor,
   row,
   column,
+  canvasId,
 }: ArtEditorProps) {
   // Set the initial color chosen to be black
   const [currentColor, setCurrentColor] = useState('#000000');
@@ -30,7 +32,7 @@ export default function ArtEditor({
 
     // Base64 Image URL
     const imageBase64 = await convertCanvasToImageUrl(exportRef.current);
-    const data = { imageBase64, user, row, column };
+    const data = { imageBase64, user, row, column, canvasId };
     console.log(data);
 
     // Currently it contains all information on the image given by Cloudinary
@@ -41,7 +43,7 @@ export default function ArtEditor({
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <div className="m-0 p-0 w-screen h-screen bg-black/70 flex items-center justify-center top-0 absolute z-10 backdrop-blur-sm">
-        <div className="pt-5 border-3 border-black flex flex-col items-center justify-center w-1/3 rounded-lg absolute bg-offwhite shadow-md z-20">
+        <div className="pt-5 flex flex-col items-center justify-center w-1/3 rounded-lg absolute bg-offwhite shadow-md z-20">
           {/* The Pixel Art canvas */}
           <PixelGrid
             exportRef={exportRef}
