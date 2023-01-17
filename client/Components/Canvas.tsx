@@ -52,8 +52,8 @@ export default function Canvas({
   }
 
   return (
-    <div className="flex flex-col items-start w-fit p-2 py-4 gap-3 m-5 my-4">
-      <div className="shadow-xl w-fit self-start">{grid}</div>
+    <div className="flex flex-col items-start w-fit gap-3 h-fit">
+      <div className="shadow-md w-fit self-start">{grid}</div>
     </div>
   );
 }

@@ -115,13 +115,14 @@ const retrieveUserInformation = async () => {
 const retrieveUserArt = async () => {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch('http:localhost:3005/user/artwork', {
+    const response = await fetch('http://localhost:3005/user/artwork', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
+    // console.log('artist list', await response.json());
     return await response.json();
   } catch (err) {
     console.log('There was an error with retrieveing the users contributions');

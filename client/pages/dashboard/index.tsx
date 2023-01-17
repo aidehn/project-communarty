@@ -4,6 +4,8 @@ import ArtEditor from '../../Components/ArtEditor';
 import apiService from '../../utility/apiService';
 import Navbar from '../../Components/Navbar';
 import HighlightPanel from '../../Components/HighlightPanel';
+import { image } from 'html2canvas/dist/types/css/types/image';
+import ContributionList from '../../Components/ContributionList';
 
 export default function Dashboard() {
   const [toggleArtEditor, setToggleArtEditor] = useState(false);
@@ -13,7 +15,7 @@ export default function Dashboard() {
     undefined
   );
   const [currentUser, setCurrentUser] = useState<any>({});
-  const [artworkList, setArtworkList] = useState<any[]>([]);
+  const [artworkList, setArtworkList] = useState<any>([]);
   const [highlightedArt, setHighlightedArt] = useState<any>({});
 
   useEffect(() => {
@@ -32,13 +34,20 @@ export default function Dashboard() {
       setCurrentUser(userResponse);
       // This somehow fixed a loading issue
       getAllCanvasData(userResponse.canvas_id);
+
+      // Get all contribution data
+      const contributions = await apiService.retrieveUserArt();
+      console.log(contributions);
+      setArtworkList(contributions.reverse());
     };
     getDataOnLoad();
   }, []);
 
   const updateCanvas = async (canvasId: string) => {
     const newCanvas = await apiService.getAllArtworkById(canvasId);
+    const newContributions = await apiService.retrieveUserArt();
     setCanvasData(newCanvas);
+    setArtworkList(newContributions.reverse());
   };
 
   return (
@@ -50,7 +59,14 @@ export default function Dashboard() {
       </p>
       <p>Email : {currentUser.email}</p>
       <p>Canvas Id : {currentUser.canvas_id} </p>
-      <div className="p-0 m-0 flex flex-row items-start justify-start">
+      <div className="p-0 m-0 h-screen flex flex-row items-start justify-start">
+        <div>
+          <p className="m-4 mt-0 p-0 font-bold text-xl">
+            /<span className="text-cobalt">art</span>/{' '}
+            {highlightedArt['creator']}
+          </p>
+          <ContributionList contributionData={artworkList} />
+        </div>
         <Canvas
           highlightedArt={highlightedArt}
           setHighlighted={(art: any) => {
@@ -68,6 +84,8 @@ export default function Dashboard() {
           <HighlightPanel highlightedArt={highlightedArt} />
         )}
       </div>
+
+      {/* PLACE ARTWORK LIST HERE */}
 
       {toggleArtEditor && (
         <ArtEditor
