@@ -7,7 +7,6 @@ exports.postContribution = async (data) => {
     return contribution;
   } catch (err) {
     console.log('There was an error in uploading the contribution');
-    console.log(err);
     return err;
   }
 };
@@ -16,13 +15,11 @@ exports.postContribution = async (data) => {
 exports.getContributionsByCanvasId = async (canvasId) => {
   try {
     const allContributions = await Contributions.find({ belongs_to: canvasId });
-    console.log(allContributions);
     return allContributions;
   } catch (err) {
     console.log(
       `There was an error in retrieving the contributions for a given canvas: ${canvasId}`
     );
-    console.log(err);
     return err;
   }
 };

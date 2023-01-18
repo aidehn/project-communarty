@@ -33,7 +33,7 @@ export default function ArtSlot({
 
   return (
     <div
-      className="p-0 m-0 h-20 w-20 flex flex-col justify-center items-center bg-offwhite hover:cursor-pointer"
+      className="p-0 m-0 h-12 w-12 flex flex-col justify-center items-center bg-offwhite hover:cursor-pointer"
       onClick={() => {
         setHighlighted({ creator, image_src });
       }}
@@ -41,10 +41,7 @@ export default function ArtSlot({
       <img
         onClick={
           image_src
-            ? () => {
-                // testing
-                console.log(creator);
-              }
+            ? () => {}
             : () => {
                 setStateOnClick(row, column);
               }

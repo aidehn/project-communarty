@@ -4,8 +4,6 @@ import apiService from '../utility/apiService';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-// If I remember, make register and login one component i dont know why it is separate i am too far gone
-
 type RegisterProps = {
   toggleRegister: () => void;
 };
@@ -19,14 +17,9 @@ export default function Register({ toggleRegister }: RegisterProps) {
 
   const handleSubmit = async () => {
     const userData = { username, email, password };
-    console.log('woo');
     // Don't want to return the user details. Returns the status of the account creation
     const response = await apiService.createAccount(userData);
     setPromptMessage(response.status);
-    // Go back to the login page to sign-in
-    router.push('/login');
-
-    console.log(status);
   };
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +76,7 @@ export default function Register({ toggleRegister }: RegisterProps) {
           Create Account
         </button>
       </form>
-      <p className="text-gray-500">{promptMessage}</p>
+      <p className="text-gray-500 m-0 p-0">{promptMessage}</p>
       <p className="text-gray-500">
         Have an account?{' '}
         <span

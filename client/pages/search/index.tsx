@@ -39,23 +39,28 @@ export default function Search() {
 
   return (
     <div className="m-0 p-0 w-screen h-screen bg-offwhite">
-      <Navbar />
-      <p className="text-3xl font-semibold">Search for other Canvases</p>
+      <Navbar canvasId={currentUser.canvas_id} />
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <input
-          className="p-2 px-4 border-3 border-solid border-black outline-none text-md w-1/3 rounded-lg focus:border-cobalt"
-          placeholder="Search by Canvas ID"
-          onChange={(e) => setSearchTerm(e.target.value)}
-        ></input>
-      </form>
+      <div className="p-0 w-screen h-fit my-4 flex flex-col justify-center items-center">
+        <p className="text-black font-bold text-3xl">
+          Search for other Canvases
+        </p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+          className="w-1/2"
+        >
+          <input
+            className="py-2 px-4 mt-3 border-2 border-solid border-black outline-none text-md w-full rounded-lg focus:border-cobalt"
+            placeholder="Search by Canvas ID"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          ></input>
+        </form>
+      </div>
 
-      <div className="p-0 m-0 flex flex-row items-start justify-start">
+      <div className="p-0 m-0 flex flex-row items-start justify-center">
         <Canvas
           highlightedArt={highlightedArt}
           setHighlighted={(art: any) => {

@@ -16,7 +16,6 @@ export default function Login({ toggleRegister }: LoginProps) {
     const loginData = { email, password };
     const response = await apiService.loginUser(loginData);
     if (response && response.token) {
-      console.log(response);
       // If there was a response from the server, and the token exists, set in local storage for future requests.
       localStorage.setItem('token', response.token);
       // Navigate to the dashboard

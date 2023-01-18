@@ -4,7 +4,6 @@ import ArtEditor from '../../Components/ArtEditor';
 import apiService from '../../utility/apiService';
 import Navbar from '../../Components/Navbar';
 import HighlightPanel from '../../Components/HighlightPanel';
-import { image } from 'html2canvas/dist/types/css/types/image';
 import ContributionList from '../../Components/ContributionList';
 
 export default function Dashboard() {
@@ -21,7 +20,6 @@ export default function Dashboard() {
   useEffect(() => {
     const getAllCanvasData = async (canvasId: string) => {
       const data = await apiService.getAllArtworkById(canvasId);
-      console.log(data);
       setCanvasData(data);
     };
 
@@ -30,14 +28,11 @@ export default function Dashboard() {
     const getDataOnLoad = async () => {
       // Grabbing basic User Information { username, email, canvas_id }
       const userResponse = await apiService.retrieveUserInformation();
-      console.log(userResponse);
       setCurrentUser(userResponse);
       // This somehow fixed a loading issue
       getAllCanvasData(userResponse.canvas_id);
-
       // Get all contribution data
       const contributions = await apiService.retrieveUserArt();
-      console.log(contributions);
       setArtworkList(contributions.reverse());
     };
     getDataOnLoad();
@@ -52,21 +47,20 @@ export default function Dashboard() {
 
   return (
     <div className="m-0 p-0 w-screen h-screen bg-offwhite overflow-hidden">
-      <Navbar />
-      <p className="text-3xl font-semibold">
-        Hello, {currentUser.username || 'there'} ! Welcome to your personal
-        canvas.
-      </p>
-      <p>Email : {currentUser.email}</p>
-      <p>Canvas Id : {currentUser.canvas_id} </p>
-      <div className="p-0 m-0 h-screen flex flex-row items-start justify-start">
-        <div>
-          <p className="m-4 mt-0 p-0 font-bold text-xl">
-            /<span className="text-cobalt">art</span>/{' '}
-            {highlightedArt['creator']}
-          </p>
-          <ContributionList contributionData={artworkList} />
-        </div>
+      <Navbar canvasId={currentUser.canvas_id} />
+
+      <div className="p-0 m-0 w-screen h-fit my-4 flex flex-row justify-center items-center">
+        <p className="text-black font-bold text-3xl">
+          Hello /
+          <span className="text-cobalt hover:underline">
+            {currentUser.username || 'there'}
+          </span>
+          / ! Welcome to your Personal Canvas.
+        </p>
+      </div>
+
+      <div className="p-0 m-0 flex flex-row items-start justify-start h-screen">
+        <ContributionList contributionData={artworkList} />
         <Canvas
           highlightedArt={highlightedArt}
           setHighlighted={(art: any) => {
@@ -84,8 +78,6 @@ export default function Dashboard() {
           <HighlightPanel highlightedArt={highlightedArt} />
         )}
       </div>
-
-      {/* PLACE ARTWORK LIST HERE */}
 
       {toggleArtEditor && (
         <ArtEditor
