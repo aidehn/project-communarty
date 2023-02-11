@@ -1,5 +1,3 @@
-# project-communarty
-
 # Commun/art/y
 
 ## _Join the Communarty Today!_

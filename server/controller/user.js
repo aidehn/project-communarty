@@ -25,10 +25,8 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const loginData = { email, password };
-    console.log(loginData);
     const result = await userQueries.loginUser(loginData);
 
-    console.log(result);
     if (result.status === 'Correct Password') {
       // Send Back a jwt for authentication
       const token = jwt.sign(
@@ -42,7 +40,6 @@ exports.loginUser = async (req, res) => {
       res.status = 200;
       res.send({ token });
     } else if (result.status === 'Email / Password Incorrect') {
-      console.log('aint no mo token');
       res.status = 400;
       res.send({ token: null });
     }

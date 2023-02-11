@@ -21,7 +21,6 @@ const postImageToServer = async (data: any) => {
 // Gets all Artwork for a given Canvas (for one canvas, we will hard code the name)
 const getAllArtworkById = async (canvasId: string) => {
   const queryData = { canvasId };
-  console.log(queryData);
   try {
     const response = await fetch('http://localhost:3005/canvas', {
       method: 'POST',
@@ -31,7 +30,6 @@ const getAllArtworkById = async (canvasId: string) => {
       body: JSON.stringify(queryData),
     });
     const artwork = await response.json();
-    console.log('the artwork response', artwork);
     return artwork;
   } catch (err) {
     console.log(`There was an error in uploading the image.`);
@@ -86,31 +84,13 @@ const retrieveUserInformation = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const thing = await response.json();
-    console.log('this is thiing', thing);
-    return thing;
+    const result = await response.json();
+    return result;
   } catch (err) {
     console.log('There was an error with retrieveing the users data');
     return err;
   }
 };
-
-// const retrieveUserCanvases = async () => {
-//   const token = localStorage.getItem('token');
-//   try {
-//     const response = await fetch('http:localhost:3005/user/canvas', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return await response.json();
-//   } catch (err) {
-//     console.log('There was an error with retrieveing the users canvases');
-//     return err;
-//   }
-// };
 
 const retrieveUserArt = async () => {
   const token = localStorage.getItem('token');
@@ -122,7 +102,6 @@ const retrieveUserArt = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    // console.log('artist list', await response.json());
     return await response.json();
   } catch (err) {
     console.log('There was an error with retrieveing the users contributions');
@@ -140,7 +119,6 @@ const searchCanvasByUser = async (username: string) => {
       body: JSON.stringify({ username }),
     });
     const userCanvasInfo = await response.json();
-    console.log(userCanvasInfo);
     return userCanvasInfo;
   } catch (err) {
     console.log('There was an error in searching for users');
