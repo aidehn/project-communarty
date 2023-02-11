@@ -44,7 +44,6 @@ exports.getContributionsByCanvasId = async (req, res) => {
     const contributions = await contributionQueries.getContributionsByCanvasId(
       canvasId
     );
-    console.log(contributions);
     // SUCCESSFUL GET
     res.status(200);
     res.send(contributions);

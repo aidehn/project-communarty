@@ -5,10 +5,8 @@ const bcrypt = require('bcrypt');
 exports.createUser = async (userData) => {
   try {
     // Check if the user already exists
-    console.log('before');
     const checkEmail = await Users.findOne({ email: userData.email });
     const checkUsername = await Users.findOne({ username: userData.username });
-    console.log(checkEmail);
     if (checkEmail || checkUsername) return { status: 'User Exists' };
 
     // If the user doesn't exist, hash and store the password
@@ -20,8 +18,6 @@ exports.createUser = async (userData) => {
       ...userData,
       password: hashedPassword,
     });
-
-    console.log(newUser);
 
     // Creating the canvas
     await Canvases.create({
@@ -47,8 +43,6 @@ exports.loginUser = async (loginData) => {
         loginData.password,
         user.password
       );
-      console.log(passwordCorrect);
-
       return passwordCorrect
         ? { status: 'Correct Password', userId: user._id }
         : { status: 'Email / Password Incorrect', userId: null };
@@ -72,7 +66,6 @@ exports.getUserInfo = async (userId) => {
       email: user.email,
       canvas_id: userCanvas._id,
     };
-    // console.log('THIS SHIT WILD', returnedInfo);
     return returnedInfo;
   } catch (err) {
     return err;
