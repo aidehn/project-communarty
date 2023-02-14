@@ -5,10 +5,18 @@ import apiService from '../../utility/apiService';
 import Navbar from '../../Components/Navbar';
 import HighlightPanel from '../../Components/HighlightPanel';
 import ContributionList from '../../Components/ContributionList';
+import {
+  selectToggleEditorState,
+  setToggleEditorState,
+} from '../../store/toggleEditorSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Dashboard() {
   // toggleArtEditor needs to be a redux state
-  const [toggleArtEditor, setToggleArtEditor] = useState(false);
+  // const [toggleArtEditor, setToggleArtEditor] = useState(false);
+
+  const toggleArtEditor = useSelector(selectToggleEditorState);
+
   // Canvas data needs a type
   const [canvasData, setCanvasData] = useState<any>([]);
 
@@ -75,9 +83,6 @@ export default function Dashboard() {
             setHighlightedArt(art);
           }}
           currentUser={currentUser}
-          enableEditor={() => {
-            setToggleArtEditor(true);
-          }}
           setRow={setCurrentRow}
           setColumn={setCurrentColumn}
           canvasData={canvasData}
@@ -94,9 +99,6 @@ export default function Dashboard() {
           column={currentColumn}
           user={currentUser.username}
           canvasId={currentUser.canvas_id}
-          disableEditor={() => {
-            setToggleArtEditor(false);
-          }}
         />
       )}
     </div>

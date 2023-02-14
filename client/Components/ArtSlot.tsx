@@ -1,5 +1,7 @@
 import { CloudWatchLogs } from 'aws-sdk';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
+import { setToggleEditorState } from '../store/toggleEditorSlice';
 
 type ArtSlotProps = {
   image_src: string | undefined;
@@ -8,7 +10,6 @@ type ArtSlotProps = {
   highlightedArt: any;
   setHighlighted: (art: any) => void;
   column: number;
-  enableEditor: () => void;
   setRow: (index: number) => void;
   setColumn: (index: number) => void;
 };
@@ -18,17 +19,18 @@ export default function ArtSlot({
   column,
   image_src,
   creator,
-  enableEditor,
   setRow,
   setColumn,
   highlightedArt,
   setHighlighted,
 }: ArtSlotProps) {
+  // Create a dispatch to update the state.
+  const dispatch = useDispatch();
   const setStateOnClick = (row: number, column: number) => {
     // We want the editor to have access to the row and column the user clicks on, for data storage purposes.
     setRow(row);
     setColumn(column);
-    enableEditor();
+    dispatch(setToggleEditorState(true));
   };
 
   return (

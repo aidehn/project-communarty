@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { gridLocationSlice } from './gridLocationSlice';
 import { createWrapper } from 'next-redux-wrapper';
+import { toggleEditorSlice } from './toggleEditorSlice';
 
 const makeStore = () => {
   return configureStore({
     reducer: {
       [gridLocationSlice.name]: gridLocationSlice.reducer,
+      [toggleEditorSlice.name]: toggleEditorSlice.reducer,
     },
     devTools: true,
   });

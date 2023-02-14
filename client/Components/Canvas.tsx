@@ -8,7 +8,6 @@ type UserDetails = {
 };
 
 type CanvasProps = {
-  enableEditor: () => void;
   setRow: (index: number) => void;
   setColumn: (index: number) => void;
   canvasData: any[];
@@ -18,11 +17,9 @@ type CanvasProps = {
 };
 
 export default function Canvas({
-  enableEditor,
   setRow,
   setColumn,
   canvasData,
-  currentUser,
   highlightedArt,
   setHighlighted,
 }: CanvasProps) {
@@ -39,7 +36,6 @@ export default function Canvas({
         key={i}
         width={WIDTH}
         row={i}
-        enableEditor={enableEditor}
         setRow={setRow}
         setColumn={setColumn}
         rowData={rowData}

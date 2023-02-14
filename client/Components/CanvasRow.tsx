@@ -6,7 +6,6 @@ type CanvasRowProps = {
   rowData: any[];
   highlightedArt: any;
   setHighlighted: (art: any) => void;
-  enableEditor: () => void;
   setRow: (index: number) => void;
   setColumn: (index: number) => void;
 };
@@ -15,7 +14,6 @@ export default function CanvasRow({
   width,
   row,
   rowData,
-  enableEditor,
   setRow,
   setColumn,
   highlightedArt,
@@ -36,7 +34,6 @@ export default function CanvasRow({
         image_src={imageUrl}
         row={row}
         column={i}
-        enableEditor={enableEditor}
         creator={(artData && artData['owner_id']) || ''}
         setRow={setRow}
         setColumn={setColumn}

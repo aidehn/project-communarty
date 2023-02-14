@@ -3,24 +3,26 @@ import { TwitterPicker } from 'react-color';
 import PixelGrid from './PixelGrid';
 import convertCanvasToImageUrl from '../utility/imageConversion';
 import apiService from '../utility/apiService';
+import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { setToggleEditorState } from '../store/toggleEditorSlice';
 
 type ArtEditorProps = {
   row?: number;
   column?: number;
   user: string;
   canvasId: string;
-  disableEditor: () => void;
   updateCanvas: (canvasId: string) => void;
 };
 
 export default function ArtEditor({
   user,
-  disableEditor,
   row,
   column,
   canvasId,
   updateCanvas,
 }: ArtEditorProps) {
+  const dispatch = useDispatch();
+
   // Set the initial color chosen to be black
   const [currentColor, setCurrentColor] = useState('#000000');
 
@@ -30,7 +32,7 @@ export default function ArtEditor({
   // Submit to the Cloudinary Store
   const submitArtwork = async () => {
     // Close the editor
-    disableEditor();
+    dispatch(setToggleEditorState(false));
 
     // Base64 Image URL
     const imageBase64 = await convertCanvasToImageUrl(exportRef.current);
@@ -76,7 +78,7 @@ export default function ArtEditor({
               <button
                 className="p-0 m-0 bg-black w-full h-1/2 border-black text-white border-2 border-solid rounded-md hover:border-cobalt font-bold shadow-md"
                 onClick={() => {
-                  disableEditor();
+                  dispatch(setToggleEditorState(false));
                 }}
               >
                 Close
