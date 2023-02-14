@@ -7,14 +7,22 @@ import HighlightPanel from '../../Components/HighlightPanel';
 import ContributionList from '../../Components/ContributionList';
 
 export default function Dashboard() {
+  // toggleArtEditor needs to be a redux state
   const [toggleArtEditor, setToggleArtEditor] = useState(false);
+  // Canvas data needs a type
   const [canvasData, setCanvasData] = useState<any>([]);
+
+  // These need to be redux states
   const [currentRow, setCurrentRow] = useState<undefined | number>(undefined);
   const [currentColumn, setCurrentColumn] = useState<undefined | number>(
     undefined
   );
+
+  // Define types for these things, current user can also be in a redux store? Maybe not since using JWT
   const [currentUser, setCurrentUser] = useState<any>({});
   const [artworkList, setArtworkList] = useState<any>([]);
+
+  // Maybe also in a redux store?
   const [highlightedArt, setHighlightedArt] = useState<any>({});
 
   useEffect(() => {
