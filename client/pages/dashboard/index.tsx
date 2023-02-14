@@ -59,7 +59,7 @@ export default function Dashboard() {
         </p>
       </div>
 
-      <div className="p-0 m-0 flex flex-row items-start justify-start h-screen">
+      <div className="p-0 m-0 flex flex-row items-start justify-center h-screen">
         <ContributionList contributionData={artworkList} />
         <Canvas
           highlightedArt={highlightedArt}

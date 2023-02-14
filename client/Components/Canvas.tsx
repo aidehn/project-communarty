@@ -26,8 +26,6 @@ export default function Canvas({
   highlightedArt,
   setHighlighted,
 }: CanvasProps) {
-  //
-
   // Hard Coded Dimensions for the Canvas
   const HEIGHT = 12;
   const WIDTH = 24;
