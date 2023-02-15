@@ -8,8 +8,6 @@ type UserDetails = {
 };
 
 type CanvasProps = {
-  setRow: (index: number) => void;
-  setColumn: (index: number) => void;
   canvasData: any[];
   currentUser: UserDetails;
   highlightedArt: any;
@@ -17,8 +15,6 @@ type CanvasProps = {
 };
 
 export default function Canvas({
-  setRow,
-  setColumn,
   canvasData,
   highlightedArt,
   setHighlighted,
@@ -36,8 +32,6 @@ export default function Canvas({
         key={i}
         width={WIDTH}
         row={i}
-        setRow={setRow}
-        setColumn={setColumn}
         rowData={rowData}
         highlightedArt={highlightedArt}
         setHighlighted={setHighlighted}

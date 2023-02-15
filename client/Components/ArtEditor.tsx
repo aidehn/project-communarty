@@ -5,10 +5,10 @@ import convertCanvasToImageUrl from '../utility/imageConversion';
 import apiService from '../utility/apiService';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { setToggleEditorState } from '../store/toggleEditorSlice';
+import { useSelector } from 'react-redux/es/exports';
+import { selectGridLocationState } from '../store/gridLocationSlice';
 
 type ArtEditorProps = {
-  row?: number;
-  column?: number;
   user: string;
   canvasId: string;
   updateCanvas: (canvasId: string) => void;
@@ -16,12 +16,13 @@ type ArtEditorProps = {
 
 export default function ArtEditor({
   user,
-  row,
-  column,
   canvasId,
   updateCanvas,
 }: ArtEditorProps) {
   const dispatch = useDispatch();
+
+  // Subscribe to the gridLocation in the store, { row, column }
+  const gridLocation = useSelector(selectGridLocationState);
 
   // Set the initial color chosen to be black
   const [currentColor, setCurrentColor] = useState('#000000');
@@ -36,7 +37,7 @@ export default function ArtEditor({
 
     // Base64 Image URL
     const imageBase64 = await convertCanvasToImageUrl(exportRef.current);
-    const data = { imageBase64, user, row, column, canvasId };
+    const data = { imageBase64, user, canvasId, ...gridLocation };
 
     // Currently it contains all information on the image given by Cloudinary
     const response = await apiService.postImageToServer(data);

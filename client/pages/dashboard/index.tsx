@@ -83,8 +83,6 @@ export default function Dashboard() {
             setHighlightedArt(art);
           }}
           currentUser={currentUser}
-          setRow={setCurrentRow}
-          setColumn={setCurrentColumn}
           canvasData={canvasData}
         />
         {highlightedArt['image_src'] && (
@@ -95,8 +93,6 @@ export default function Dashboard() {
       {toggleArtEditor && (
         <ArtEditor
           updateCanvas={updateCanvas}
-          row={currentRow}
-          column={currentColumn}
           user={currentUser.username}
           canvasId={currentUser.canvas_id}
         />

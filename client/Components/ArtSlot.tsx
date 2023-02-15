@@ -1,4 +1,8 @@
 import { useDispatch } from 'react-redux';
+import {
+  setGridColumnState,
+  setGridRowState,
+} from '../store/gridLocationSlice';
 import { setToggleEditorState } from '../store/toggleEditorSlice';
 
 type ArtSlotProps = {
@@ -8,8 +12,6 @@ type ArtSlotProps = {
   highlightedArt: any;
   setHighlighted: (art: any) => void;
   column: number;
-  setRow: (index: number) => void;
-  setColumn: (index: number) => void;
 };
 
 export default function ArtSlot({
@@ -17,8 +19,6 @@ export default function ArtSlot({
   column,
   image_src,
   creator,
-  setRow,
-  setColumn,
   highlightedArt,
   setHighlighted,
 }: ArtSlotProps) {
@@ -26,8 +26,8 @@ export default function ArtSlot({
   const dispatch = useDispatch();
   const setStateOnClick = (row: number, column: number) => {
     // We want the editor to have access to the row and column the user clicks on, for data storage purposes.
-    setRow(row);
-    setColumn(column);
+    dispatch(setGridRowState(row));
+    dispatch(setGridColumnState(column));
     dispatch(setToggleEditorState(true));
   };
 
