@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AppState } from './store';
+
+const hydrate = createAction<AppState>(HYDRATE);
 
 export type GridLocationState = {
   row: number | null;
@@ -23,13 +25,13 @@ export const gridLocationSlice = createSlice({
       state.column = action.payload;
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(hydrate, (state, action) => {
       return {
         ...state,
         ...action.payload.gridLocation,
       };
-    },
+    });
   },
 });
 

@@ -1,6 +1,4 @@
-import { CloudWatchLogs } from 'aws-sdk';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux';
 import { setToggleEditorState } from '../store/toggleEditorSlice';
 
 type ArtSlotProps = {
