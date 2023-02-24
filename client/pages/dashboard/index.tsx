@@ -10,28 +10,21 @@ import {
   setToggleEditorState,
 } from '../../store/toggleEditorSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectHighlightedArtState } from '../../store/highlightedArtSlice';
 
 export default function Dashboard() {
-  // toggleArtEditor needs to be a redux state
-  // const [toggleArtEditor, setToggleArtEditor] = useState(false);
-
   const toggleArtEditor = useSelector(selectToggleEditorState);
 
   // Canvas data needs a type
   const [canvasData, setCanvasData] = useState<any>([]);
-
-  // These need to be redux states
-  const [currentRow, setCurrentRow] = useState<undefined | number>(undefined);
-  const [currentColumn, setCurrentColumn] = useState<undefined | number>(
-    undefined
-  );
 
   // Define types for these things, current user can also be in a redux store? Maybe not since using JWT
   const [currentUser, setCurrentUser] = useState<any>({});
   const [artworkList, setArtworkList] = useState<any>([]);
 
   // Maybe also in a redux store?
-  const [highlightedArt, setHighlightedArt] = useState<any>({});
+  // const [highlightedArt, setHighlightedArt] = useState<any>({});
+  const highlightedArt = useSelector(selectHighlightedArtState);
 
   useEffect(() => {
     const getAllCanvasData = async (canvasId: string) => {
@@ -79,9 +72,6 @@ export default function Dashboard() {
         <ContributionList contributionData={artworkList} />
         <Canvas
           highlightedArt={highlightedArt}
-          setHighlighted={(art: any) => {
-            setHighlightedArt(art);
-          }}
           currentUser={currentUser}
           canvasData={canvasData}
         />

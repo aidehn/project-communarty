@@ -3,8 +3,8 @@ type HighlightPanelProps = {
 };
 
 type HighlightedArtInfo = {
-  creator: string;
-  image_src: string;
+  creator: string | undefined;
+  image_src: string | undefined;
 };
 
 export default function HighlightPanel({

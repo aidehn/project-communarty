@@ -3,6 +3,10 @@ import {
   setGridColumnState,
   setGridRowState,
 } from '../store/gridLocationSlice';
+import {
+  setCreatorState,
+  setImageSrcState,
+} from '../store/highlightedArtSlice';
 import { setToggleEditorState } from '../store/toggleEditorSlice';
 
 type ArtSlotProps = {
@@ -10,7 +14,6 @@ type ArtSlotProps = {
   creator?: string;
   row: number;
   highlightedArt: any;
-  setHighlighted: (art: any) => void;
   column: number;
 };
 
@@ -20,7 +23,6 @@ export default function ArtSlot({
   image_src,
   creator,
   highlightedArt,
-  setHighlighted,
 }: ArtSlotProps) {
   // Create a dispatch to update the state.
   const dispatch = useDispatch();
@@ -35,7 +37,8 @@ export default function ArtSlot({
     <div
       className="p-0 m-0 h-12 w-12 flex flex-col justify-center items-center bg-offwhite hover:cursor-pointer"
       onClick={() => {
-        setHighlighted({ creator, image_src });
+        dispatch(setImageSrcState(image_src));
+        dispatch(setCreatorState(creator));
       }}
     >
       <img

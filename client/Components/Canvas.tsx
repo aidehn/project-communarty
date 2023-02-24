@@ -11,14 +11,9 @@ type CanvasProps = {
   canvasData: any[];
   currentUser: UserDetails;
   highlightedArt: any;
-  setHighlighted: (art: any) => void;
 };
 
-export default function Canvas({
-  canvasData,
-  highlightedArt,
-  setHighlighted,
-}: CanvasProps) {
+export default function Canvas({ canvasData, highlightedArt }: CanvasProps) {
   // Hard Coded Dimensions for the Canvas
   const HEIGHT = 12;
   const WIDTH = 24;
@@ -34,7 +29,6 @@ export default function Canvas({
         row={i}
         rowData={rowData}
         highlightedArt={highlightedArt}
-        setHighlighted={setHighlighted}
       />
     );
   }

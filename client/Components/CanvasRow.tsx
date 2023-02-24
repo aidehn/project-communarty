@@ -5,7 +5,6 @@ type CanvasRowProps = {
   row: number;
   rowData: any[];
   highlightedArt: any;
-  setHighlighted: (art: any) => void;
 };
 
 export default function CanvasRow({
@@ -13,7 +12,6 @@ export default function CanvasRow({
   row,
   rowData,
   highlightedArt,
-  setHighlighted,
 }: CanvasRowProps) {
   // Defining a given row in the grid
   const gridRow = [];
@@ -25,7 +23,6 @@ export default function CanvasRow({
     gridRow.push(
       <ArtSlot
         highlightedArt={highlightedArt}
-        setHighlighted={setHighlighted}
         key={i}
         image_src={imageUrl}
         row={row}
