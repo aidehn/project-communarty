@@ -60,7 +60,7 @@ export default function Login({ toggleRegister }: LoginProps) {
         </Link> */}
         <button
           type="submit"
-          className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg font-bold hover:bottom-[2px] hover:relative"
+          className="p-2 px-4 m-0 bg-black w-full border-black text-white border-3 border-solid rounded-lg font-bold hover:bottom-2px hover:relative"
         >
           Log in
         </button>

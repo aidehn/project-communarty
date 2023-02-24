@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-
 type PixelProps = {
-  currentColor: string
-}
+  currentColor: string;
+};
 
-export default function Pixel ({ currentColor }: PixelProps) {
+export default function Pixel({ currentColor }: PixelProps) {
   // Setting the default color of the canvas to white
   const [pixelColor, setPixelColor] = useState('#FFFFFF');
   const [prevColor, setPrevColor] = useState(currentColor);
@@ -15,7 +14,7 @@ export default function Pixel ({ currentColor }: PixelProps) {
   const changeColor = () => {
     setPixelColor(currentColor);
     setCanEditColor(false);
-  }
+  };
 
   // Upon entering the pixel, preview the new color
   const previewColor = () => {
@@ -23,14 +22,22 @@ export default function Pixel ({ currentColor }: PixelProps) {
     setPrevColor(pixelColor);
     // Set the new preview colour
     setPixelColor(currentColor);
-  }
+  };
 
   // Upon leaving the pixel, remove the preview and return to the old colour
   const returnColor = () => {
     if (canEditColor) setPixelColor(prevColor);
     setCanEditColor(true);
-  }
+  };
 
   // Tailwind doesn't support dynamic class names, using inline styling instead
-  return <div className="h-7 w-7 hover:cursor-pointer" style={ {backgroundColor: pixelColor} } onClick={changeColor} onMouseEnter={previewColor} onMouseLeave={returnColor}></div>
+  return (
+    <div
+      className="h-7 w-7 hover:cursor-pointer"
+      style={{ backgroundColor: pixelColor }}
+      onClick={changeColor}
+      onMouseEnter={previewColor}
+      onMouseLeave={returnColor}
+    ></div>
+  );
 }

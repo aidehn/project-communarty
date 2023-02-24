@@ -4,19 +4,23 @@ import ArtEditor from '../../Components/ArtEditor';
 import { useEffect, useState } from 'react';
 import apiService from '../../utility/apiService';
 import HighlightPanel from '../../Components/HighlightPanel';
+import { useSelector } from 'react-redux';
+import { selectToggleEditorState } from '../../store/toggleEditorSlice';
+import { selectHighlightedArtState } from '../../store/highlightedArtSlice';
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentUser, setCurrentUser] = useState<any>({});
   const [canvasData, setCanvasData] = useState<any>([]);
-  const [currentRow, setCurrentRow] = useState<undefined | number>(undefined);
-  const [currentColumn, setCurrentColumn] = useState<undefined | number>(
-    undefined
-  );
-  const [toggleArtEditor, setToggleArtEditor] = useState(false);
-  const [highlightedArt, setHighlightedArt] = useState<any>({});
+  // const [toggleArtEditor, setToggleArtEditor] = useState(false);
+  // const [highlightedArt, setHighlightedArt] = useState<any>({});
+
+  const highlightedArt = useSelector(selectHighlightedArtState);
+  const toggleArtEditor = useSelector(selectToggleEditorState);
 
   useEffect(() => {
+    // ** Note to self : Might need to reset highlighted art and art editor if persists through page swap
+
     // On load, we need to grab all canvas and art data from the server using the token
     // If the token is invalid, or there is no token, we must return to the home page**
     const getDataOnLoad = async () => {
@@ -63,15 +67,7 @@ export default function Search() {
       <div className="p-0 m-0 flex flex-row items-start justify-center">
         <Canvas
           highlightedArt={highlightedArt}
-          setHighlighted={(art: any) => {
-            setHighlightedArt(art);
-          }}
           currentUser={currentUser}
-          enableEditor={() => {
-            setToggleArtEditor(true);
-          }}
-          setRow={setCurrentRow}
-          setColumn={setCurrentColumn}
           canvasData={canvasData}
         />
         {highlightedArt['image_src'] && (
@@ -82,13 +78,8 @@ export default function Search() {
       {toggleArtEditor && (
         <ArtEditor
           updateCanvas={updateCanvas}
-          row={currentRow}
-          column={currentColumn}
           user={currentUser.username}
           canvasId={searchTerm}
-          disableEditor={() => {
-            setToggleArtEditor(false);
-          }}
         />
       )}
     </div>

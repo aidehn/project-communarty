@@ -13,7 +13,7 @@ export default function CreateCanvas({
   };
 
   return (
-    <div className="m-0 p-0 w-screen h-screen bg-black/70 flex items-center justify-center top-0 absolute z-10 backdrop-blur-sm hid">
+    <div className="m-0 p-0 w-screen h-screen bg-black/70 flex items-center justify-center top-0 absolute z-10 backdrop-blur-sm">
       <div className="p-2 pt-4 flex flex-col items-center justify-center rounded-lg absolute bg-offwhite shadow-md z-20">
         <p className="font-semibold">New Canvas</p>
         <form
